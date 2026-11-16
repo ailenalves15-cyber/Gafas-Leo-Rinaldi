@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GAFAS LEO RINALDI | Gafas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <a href="#" class="logo">
+    <img src="logo.png" alt="Gafas Leo Rinaldi">
+    <span>Gafas Leo Rinaldi</span>
+</a>
+
+        <nav class="nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#probador">Probador virtual</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <button class="carrito-btn" onclick="abrirCarrito()">
+            🛒
+            <span id="contador-carrito">0</span>
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-contenido">
+
+                <p class="hero-etiqueta">NUEVA COLECCIÓN</p>
+
+                <h1>
+                    TU ESTILO.<br>
+                    <span>TUS GAFAS.</span>
+                </h1>
+
+                <p class="hero-texto">
+                    Descubrí modelos que combinan diseño,
+                    personalidad y actitud.
+                </p>
+
+                <div class="hero-botones">
+
+                    <a href="#catalogo" class="btn btn-naranja">
+                        VER CATÁLOGO
+                    </a>
+
+                    <a href="#probador" class="btn btn-outline">
+                        PROBAR GAFAS
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-gafas">
+
+    <div class="gafa-placeholder">
+        <img src="portada.jpg" alt="Gafas Leo Rinaldi">
+
+    </div>
+
+</div>
+
+        </section>
+
+
+        <!-- CATÁLOGO -->
+
+        <section class="catalogo" id="catalogo">
+
+            <div class="seccion-titulo">
+
+                <div>
+                    <p class="mini-titulo">
+                        CONOCÉ NUESTRA COLECCIÓN
+                    </p>
+
+                    <h2>Modelos destacados</h2>
+                </div>
+
+            </div>
+
+            <div class="filtros">
+
+                <button class="filtro activo" onclick="filtrarProductos('todos', this)">Todos</button>
+
+                <button class="filtro" onclick="filtrarProductos('Danubio', this)">Danubio</button>
+
+                <button class="filtro" onclick="filtrarProductos('Brenta', this)">Brenta</button>
+
+                <button class="filtro" onclick="filtrarProductos('Yangtse', this)">Yangtse</button>
+
+                <button class="filtro" onclick="filtrarProductos('Tiber', this)">Tiber</button>
+
+                <button class="filtro" onclick="filtrarProductos('Nilo Black', this)">Nilo Black</button>
+
+                <button class="filtro" onclick="filtrarProductos('Nilo Blue', this)">Nilo Blue</button>
+
+                <button class="filtro" onclick="filtrarProductos('Eufrates', this)">Eufrates</button>
+
+                <button class="filtro" onclick="filtrarProductos('Edo', this)">Edo</button>
+
+            </div>
+
+            <div id="productos" class="productos-grid">
+                <!-- Productos generados desde JavaScript -->
+            </div>
+
+        </section>
+
+
+        <!-- PROBADOR VIRTUAL -->
+
+        <section class="probador" id="probador">
+
+            <div class="probador-contenido">
+
+                <p class="mini-titulo">
+                    PROBADOR VIRTUAL
+                </p>
+
+                <h2>
+                    ¿NO SABÉS CUÁL ELEGIR?
+                </h2>
+
+                <p>
+                    Probá diferentes modelos frente a la cámara
+                    y encontrá las gafas que mejor van con vos.
+                </p>
+
+                <button
+                    class="btn btn-naranja"
+                    onclick="abrirProbador()"
+                >
+                    🕶️ PROBAR GAFAS
+                </button>
+
+            </div>
+
+            <div class="probador-icono">
+                🕶️
+            </div>
+
+        </section>
+
+
+        <!-- NOSOTROS -->
+
+        <section class="nosotros" id="nosotros">
+
+            <div>
+
+                <p class="mini-titulo">
+                    SOBRE NOSOTROS
+                </p>
+
+                <h2>
+                    GAFAS CON<br>
+                    <span>PERSONALIDAD.</span>
+                </h2>
+
+            </div>
+
+            <p>
+                Creamos una selección de gafas pensadas para
+                quienes quieren sentirse cómodos, auténticos
+                y diferentes.
+            </p>
+
+        </section>
+
+
+        <!-- CONTACTO -->
+
+        <section class="contacto" id="contacto">
+
+            <p class="mini-titulo">
+                ESTAMOS PARA AYUDARTE
+            </p>
+
+            <h2>CONTACTATE CON NOSOTROS</h2>
+
+            <p>
+                ¿Tenés alguna consulta? ¡Estamos para ayudarte!
+            </p>
+
+            <div class="contacto-datos">
+
+                <a
+                    href="https://www.instagram.com/gafasleorinaldi/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    INSTAGRAM
+                </a>
+
+                <a
+                    href="https://wa.me/5492284454504"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    WHATSAPP
+                </a>
+
+                <p>
+                    📍 Olavarría, Buenos Aires, Argentina
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- OVERLAY CARRITO -->
+
+    <div
+        id="overlay"
+        class="overlay"
+        onclick="cerrarCarrito()"
+    ></div>
+
+
+    <!-- CARRITO -->
+
+    <aside id="carrito" class="carrito">
+
+        <div class="carrito-header">
+
+            <h2>
+                Tu carrito
+            </h2>
+
+            <button onclick="cerrarCarrito()">
+                ✕
+            </button>
+
+        </div>
+
+        <div
+            id="items-carrito"
+            class="items-carrito"
+        >
+            <!-- Items generados por JS -->
+        </div>
+
+        <div class="carrito-footer">
+
+            <div class="total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="total-carrito">
+                    $0
+                </strong>
+
+            </div>
+
+            <button
+                class="btn btn-naranja btn-comprar"
+                onclick="finalizarCompra()"
+            >
+                FINALIZAR COMPRA
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MODAL PRODUCTO -->
+
+    <div
+        id="modal-producto"
+        class="modal"
+        onclick="cerrarProductoDesdeFondo(event)"
+    >
+
+        <div class="modal-producto-contenido">
+
+            <button
+                class="modal-cerrar"
+                onclick="cerrarProducto()"
+            >
+                ✕
+            </button>
+
+            <div id="detalle-producto">
+                <!-- Se genera desde JavaScript -->
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL PROBADOR -->
+
+    <div id="modal-probador" class="modal">
+
+        <div class="modal-contenido modal-probador-contenido">
+
+            <button
+                class="modal-cerrar"
+                onclick="cerrarProbador()"
+            >
+                ✕
+            </button>
+
+            <p class="mini-titulo">GAFAS LEO RINALDI</p>
+
+            <h2>Probate tus gafas</h2>
+
+            <p class="probador-instruccion">
+                Ubicá tu rostro frente a la cámara y probá nuestro modelo.
+            </p>
+
+            <div class="camara-contenedor">
+
+                <video
+                    id="video-probador"
+                    autoplay
+                    muted
+                    playsinline
+                ></video>
+
+                <canvas id="canvas-probador"></canvas>
+
+                <div id="mensaje-camara" class="mensaje-camara">
+                    <span>📷</span>
+                    <p>Activá la cámara para comenzar</p>
+                </div>
+
+            </div>
+
+            <p id="estado-probador" class="estado-probador">
+                Cámara desactivada
+            </p>
+
+            <div class="controles-probador">
+
+                <button
+                    id="btn-activar-camara"
+                    class="btn btn-naranja"
+                    onclick="activarCamara()"
+                >
+                    ACTIVAR CÁMARA
+                </button>
+
+                <button
+                    id="btn-detener-camara"
+                    class="btn btn-outline"
+                    onclick="detenerCamara()"
+                    style="display:none"
+                >
+                    DETENER CÁMARA
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
