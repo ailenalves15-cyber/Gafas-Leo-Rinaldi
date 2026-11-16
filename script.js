@@ -1,3 +1,10 @@
+
+// ==========================================
+// CONFIGURACIÓN DE COMPRA
+// ==========================================
+
+const URL_API = "https://gafas-leo-rinaldi-api.ailenalves15.workers.dev";
+
 // ==========================================
 // PRODUCTOS
 // ==========================================
@@ -17,70 +24,14 @@ const variantesBase = [
 ];
 
 const productos = [
-    {
-        id: 1,
-        nombre: "Danubio",
-        modelo: "Danubio",
-        precio: 25000,
-        descripcion: "Modelo Danubio. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 2,
-        nombre: "Brenta",
-        modelo: "Brenta",
-        precio: 25000,
-        descripcion: "Modelo Brenta. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 3,
-        nombre: "Yangtse",
-        modelo: "Yangtse",
-        precio: 25000,
-        descripcion: "Modelo Yangtse. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 4,
-        nombre: "Tiber",
-        modelo: "Tiber",
-        precio: 25000,
-        descripcion: "Modelo Tiber. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 5,
-        nombre: "Nilo Black",
-        modelo: "Nilo Black",
-        precio: 25000,
-        descripcion: "Modelo Nilo Black. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 6,
-        nombre: "Nilo Blue",
-        modelo: "Nilo Blue",
-        precio: 25000,
-        descripcion: "Modelo Nilo Blue. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 7,
-        nombre: "Eufrates",
-        modelo: "Eufrates",
-        precio: 25000,
-        descripcion: "Modelo Eufrates. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    },
-    {
-        id: 8,
-        nombre: "Edo",
-        modelo: "Edo",
-        precio: 25000,
-        descripcion: "Modelo Edo. Diseño artesanal pensado para destacar en cualquier ocasión.",
-        variantes: [...variantesBase]
-    }
+    { id: 1, nombre: "Danubio", modelo: "Danubio", precio: 25000, descripcion: "Modelo Danubio. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 2, nombre: "Brenta", modelo: "Brenta", precio: 25000, descripcion: "Modelo Brenta. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 3, nombre: "Yangtse", modelo: "Yangtse", precio: 25000, descripcion: "Modelo Yangtse. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 4, nombre: "Tiber", modelo: "Tiber", precio: 25000, descripcion: "Modelo Tiber. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 5, nombre: "Nilo Black", modelo: "Nilo Black", precio: 25000, descripcion: "Modelo Nilo Black. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 6, nombre: "Nilo Blue", modelo: "Nilo Blue", precio: 25000, descripcion: "Modelo Nilo Blue. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 7, nombre: "Eufrates", modelo: "Eufrates", precio: 25000, descripcion: "Modelo Eufrates. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] },
+    { id: 8, nombre: "Edo", modelo: "Edo", precio: 25000, descripcion: "Modelo Edo. Diseño artesanal pensado para destacar en cualquier ocasión.", variantes: [...variantesBase] }
 ];
 
 // ==========================================
@@ -88,6 +39,7 @@ const productos = [
 // ==========================================
 
 let carrito = [];
+let varianteSeleccionada = 0;
 
 // ==========================================
 // MOSTRAR PRODUCTOS
@@ -102,34 +54,27 @@ function mostrarProductos(lista = productos) {
     lista.forEach(producto => {
         const tarjeta = document.createElement("article");
         tarjeta.className = "producto";
-
-        tarjeta.onclick = function () {
-            abrirProducto(producto.id);
-        };
-
-        const imagenPrincipal = producto.variantes[0].imagen;
+        tarjeta.onclick = () => abrirProducto(producto.id);
 
         tarjeta.innerHTML = `
             <div class="producto-imagen">
-                <img
-                    src="${imagenPrincipal}"
-                    alt="${producto.nombre}"
-                    onerror="imagenFallback(this)"
-                >
+                <img src="${producto.variantes[0].imagen}"
+                     alt="${producto.nombre}"
+                     onerror="imagenFallback(this)">
             </div>
             <div class="producto-info">
                 <p class="producto-categoria">Gafa de sol</p>
                 <h3>${producto.nombre}</h3>
                 <p class="producto-precio">$${formatearPrecio(producto.precio)}</p>
                 <div class="producto-botones">
-                    <button
-                        class="btn-producto"
-                        onclick="event.stopPropagation(); abrirProducto(${producto.id})"
-                    >VER MODELO</button>
-                    <button
-                        class="btn-producto btn-probar"
-                        onclick="event.stopPropagation(); abrirProbador(${producto.id})"
-                    >🕶️ PROBAR</button>
+                    <button class="btn-producto"
+                        onclick="event.stopPropagation(); abrirProducto(${producto.id})">
+                        VER MODELO
+                    </button>
+                    <button class="btn-producto btn-probar"
+                        onclick="event.stopPropagation(); abrirProbador(${producto.id})">
+                        🕶️ PROBAR
+                    </button>
                 </div>
             </div>
         `;
@@ -138,63 +83,46 @@ function mostrarProductos(lista = productos) {
     });
 }
 
-// ==========================================
-// FILTRAR PRODUCTOS
-// ==========================================
-
 function filtrarProductos(modelo, boton) {
-    document.querySelectorAll(".filtro").forEach(btn => {
-        btn.classList.remove("activo");
-    });
-
+    document.querySelectorAll(".filtro").forEach(btn => btn.classList.remove("activo"));
     if (boton) boton.classList.add("activo");
 
-    if (modelo === "todos") {
-        mostrarProductos(productos);
-    } else {
-        mostrarProductos(productos.filter(producto => producto.modelo === modelo));
-    }
+    mostrarProductos(
+        modelo === "todos"
+            ? productos
+            : productos.filter(producto => producto.modelo === modelo)
+    );
 }
 
 // ==========================================
-// ABRIR FICHA DEL PRODUCTO
+// DETALLE DEL PRODUCTO
 // ==========================================
 
 function abrirProducto(id) {
-    const producto = productos.find(producto => producto.id === id);
+    const producto = productos.find(p => p.id === id);
     if (!producto) return;
 
     varianteSeleccionada = 0;
 
     const detalle = document.getElementById("detalle-producto");
-    if (!detalle) return;
 
-    const variantesHTML = producto.variantes
-        .map((variant, index) => `
-            <button
-                type="button"
-                class="detalle-variante ${index === 0 ? "seleccionada" : ""}"
-                onclick="seleccionarVariante(${producto.id}, ${index})"
-                title="${variant.nombre}"
-            >
-                <img
-                    src="${variant.imagen}"
-                    alt="${variant.nombre}"
-                    onerror="imagenFallback(this)"
-                >
-            </button>
-        `)
-        .join("");
+    const variantesHTML = producto.variantes.map((variant, index) => `
+        <button type="button"
+            class="detalle-variante ${index === 0 ? "seleccionada" : ""}"
+            onclick="seleccionarVariante(${producto.id}, ${index})"
+            title="${variant.nombre}">
+            <img src="${variant.imagen}" alt="${variant.nombre}"
+                 onerror="imagenFallback(this)">
+        </button>
+    `).join("");
 
     detalle.innerHTML = `
         <div class="detalle-producto">
             <div class="detalle-imagen">
-                <img
-                    id="imagen-detalle"
-                    src="${producto.variantes[0].imagen}"
-                    alt="${producto.nombre}"
-                    onerror="imagenFallback(this)"
-                >
+                <img id="imagen-detalle"
+                     src="${producto.variantes[0].imagen}"
+                     alt="${producto.nombre}"
+                     onerror="imagenFallback(this)">
             </div>
             <div class="detalle-info">
                 <p class="detalle-categoria">Gafa de sol</p>
@@ -207,14 +135,14 @@ function abrirProducto(id) {
                     Variante: ${producto.variantes[0].nombre}
                 </p>
                 <div class="detalle-botones">
-                    <button
-                        class="btn btn-naranja"
-                        onclick="agregarAlCarritoDesdeDetalle(${producto.id})"
-                    >AGREGAR AL CARRITO</button>
-                    <button
-                        class="btn btn-outline"
-                        onclick="probarProductoDesdeDetalle(${producto.id})"
-                    >🕶️ PROBAR VIRTUALMENTE</button>
+                    <button class="btn btn-naranja"
+                        onclick="agregarAlCarritoDesdeDetalle(${producto.id})">
+                        AGREGAR AL CARRITO
+                    </button>
+                    <button class="btn btn-outline"
+                        onclick="probarProductoDesdeDetalle(${producto.id})">
+                        🕶️ PROBAR VIRTUALMENTE
+                    </button>
                 </div>
             </div>
         </div>
@@ -223,19 +151,13 @@ function abrirProducto(id) {
     document.getElementById("modal-producto").classList.add("activo");
 }
 
-// ==========================================
-// SELECCIONAR VARIANTE
-// ==========================================
-
-let varianteSeleccionada = 0;
-
 function seleccionarVariante(id, indice) {
-    const producto = productos.find(producto => producto.id === id);
-    if (!producto) return;
+    const producto = productos.find(p => p.id === id);
+    if (!producto || !producto.variantes[indice]) return;
 
     varianteSeleccionada = indice;
-    const variante = producto.variantes[indice];
 
+    const variante = producto.variantes[indice];
     const imagen = document.getElementById("imagen-detalle");
     if (imagen) imagen.src = variante.imagen;
 
@@ -247,10 +169,6 @@ function seleccionarVariante(id, indice) {
     });
 }
 
-// ==========================================
-// CERRAR FICHA
-// ==========================================
-
 function cerrarProducto() {
     document.getElementById("modal-producto").classList.remove("activo");
 }
@@ -259,12 +177,17 @@ function cerrarProductoDesdeFondo(event) {
     if (event.target.id === "modal-producto") cerrarProducto();
 }
 
+function probarProductoDesdeDetalle(id) {
+    cerrarProducto();
+    abrirProbador(id);
+}
+
 // ==========================================
-// AGREGAR AL CARRITO
+// CARRITO
 // ==========================================
 
 function agregarAlCarrito(id) {
-    const producto = productos.find(producto => producto.id === id);
+    const producto = productos.find(p => p.id === id);
     if (!producto) return;
 
     const variante = producto.variantes[varianteSeleccionada];
@@ -295,10 +218,6 @@ function agregarAlCarritoDesdeDetalle(id) {
     cerrarProducto();
 }
 
-// ==========================================
-// ACTUALIZAR CARRITO
-// ==========================================
-
 function actualizarCarrito() {
     const contenedor = document.getElementById("items-carrito");
     const contador = document.getElementById("contador-carrito");
@@ -306,14 +225,11 @@ function actualizarCarrito() {
 
     if (!contenedor || !contador || !totalElemento) return;
 
-    const cantidadTotal = carrito.reduce((total, item) => total + item.cantidad, 0);
-    contador.textContent = cantidadTotal;
+    contador.textContent = carrito.reduce((total, item) => total + item.cantidad, 0);
 
     if (carrito.length === 0) {
         contenedor.innerHTML = `
-            <div class="carrito-vacio">
-                <p>Tu carrito está vacío.</p>
-            </div>
+            <div class="carrito-vacio"><p>Tu carrito está vacío.</p></div>
         `;
         totalElemento.textContent = "$0";
         return;
@@ -334,10 +250,10 @@ function actualizarCarrito() {
             <div>
                 <strong>$${formatearPrecio(item.precio * item.cantidad)}</strong>
                 <br>
-                <button
-                    class="eliminar-item"
-                    onclick="eliminarDelCarrito('${item.clave}')"
-                >Eliminar</button>
+                <button class="eliminar-item"
+                    onclick="eliminarDelCarrito('${item.clave}')">
+                    Eliminar
+                </button>
             </div>
         `;
 
@@ -345,25 +261,16 @@ function actualizarCarrito() {
     });
 
     const total = carrito.reduce(
-        (suma, item) => suma + item.precio * item.cantidad,
-        0
+        (suma, item) => suma + item.precio * item.cantidad, 0
     );
 
     totalElemento.textContent = "$" + formatearPrecio(total);
 }
 
-// ==========================================
-// ELIMINAR DEL CARRITO
-// ==========================================
-
 function eliminarDelCarrito(clave) {
     carrito = carrito.filter(item => item.clave !== clave);
     actualizarCarrito();
 }
-
-// ==========================================
-// ABRIR Y CERRAR CARRITO
-// ==========================================
 
 function abrirCarrito() {
     document.getElementById("carrito").classList.add("abierto");
@@ -376,6 +283,183 @@ function cerrarCarrito() {
 }
 
 // ==========================================
+// CHECKOUT / MERCADO PAGO
+// ==========================================
+
+function finalizarCompra() {
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+    }
+
+    cerrarCarrito();
+    mostrarResumenCheckout();
+
+    document.getElementById("checkout-error").textContent = "";
+    document.getElementById("modal-checkout").classList.add("activo");
+}
+
+function cerrarCheckout() {
+    document.getElementById("modal-checkout").classList.remove("activo");
+}
+
+function mostrarResumenCheckout() {
+    const resumen = document.getElementById("checkout-resumen");
+
+    const lineas = carrito.map(item => `
+        <div class="checkout-linea">
+            <span>${item.cantidad} × ${item.nombre} (${item.variante})</span>
+            <strong>$${formatearPrecio(item.precio * item.cantidad)}</strong>
+        </div>
+    `).join("");
+
+    const total = carrito.reduce(
+        (suma, item) => suma + item.precio * item.cantidad, 0
+    );
+
+    resumen.innerHTML = `
+        <h3>Tu pedido</h3>
+        ${lineas}
+        <div class="checkout-total">
+            <span>Total de productos</span>
+            <strong>$${formatearPrecio(total)}</strong>
+        </div>
+    `;
+}
+
+function cambiarEntrega() {
+    const metodo = document.querySelector(
+        'input[name="metodoEntrega"]:checked'
+    )?.value;
+
+    const campos = document.getElementById("datos-andreani");
+    const esAndreani = metodo === "andreani";
+
+    campos.hidden = !esAndreani;
+
+    ["checkout-direccion", "checkout-cp", "checkout-localidad", "checkout-provincia"]
+        .forEach(id => {
+            const campo = document.getElementById(id);
+            campo.required = esAndreani;
+        });
+}
+
+async function enviarCompra(event) {
+    event.preventDefault();
+
+    if (carrito.length === 0) {
+        mostrarErrorCheckout("Tu carrito está vacío.");
+        return;
+    }
+
+    const formulario = document.getElementById("form-checkout");
+    const boton = document.getElementById("btn-pagar");
+    const datos = new FormData(formulario);
+
+    const payload = {
+        nombre: String(datos.get("nombre") || "").trim(),
+        email: String(datos.get("email") || "").trim(),
+        telefono: String(datos.get("telefono") || "").trim(),
+        metodoEntrega: String(datos.get("metodoEntrega") || ""),
+        direccion: String(datos.get("direccion") || "").trim(),
+        codigoPostal: String(datos.get("codigoPostal") || "").trim(),
+        localidad: String(datos.get("localidad") || "").trim(),
+        provincia: String(datos.get("provincia") || "").trim(),
+        productos: carrito.map(item => ({
+            nombre: item.nombre,
+            variante: item.variante,
+            cantidad: item.cantidad
+        }))
+    };
+
+    if (!payload.nombre || !payload.email || !payload.telefono) {
+        mostrarErrorCheckout("Completá todos tus datos de contacto.");
+        return;
+    }
+
+    if (
+        payload.metodoEntrega === "andreani" &&
+        (!payload.direccion || !payload.codigoPostal ||
+         !payload.localidad || !payload.provincia)
+    ) {
+        mostrarErrorCheckout("Completá todos los datos de envío.");
+        return;
+    }
+
+    boton.disabled = true;
+    boton.textContent = "CONECTANDO CON MERCADO PAGO...";
+    mostrarErrorCheckout("");
+
+    try {
+        const respuesta = await fetch(`${URL_API}/crear-pago`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok || !resultado.ok) {
+            throw new Error(
+                resultado.error || "No pudimos iniciar el pago. Intentá nuevamente."
+            );
+        }
+
+        if (
+            !resultado.checkoutUrl ||
+            !resultado.checkoutUrl.startsWith("https://")
+        ) {
+            throw new Error("El enlace de pago recibido no es válido.");
+        }
+
+        // No vaciamos el carrito: el pago todavía debe verificarse.
+        window.location.href = resultado.checkoutUrl;
+
+    } catch (error) {
+        console.error("Error al iniciar el pago:", error);
+        mostrarErrorCheckout(
+            error.message || "Ocurrió un error al conectar con Mercado Pago."
+        );
+
+        boton.disabled = false;
+        boton.textContent = "CONTINUAR A MERCADO PAGO";
+    }
+}
+
+function mostrarErrorCheckout(mensaje) {
+    document.getElementById("checkout-error").textContent = mensaje;
+}
+
+// ==========================================
+// MENSAJES DE REGRESO DE MERCADO PAGO
+// ==========================================
+
+function revisarRegresoDePago() {
+    const parametros = new URLSearchParams(window.location.search);
+    const estado = parametros.get("pago");
+
+    if (!estado) return;
+
+    const mensajes = {
+        aprobado: "Mercado Pago informó que finalizaste el pago. Estamos verificando el estado de la operación. Esta pantalla todavía no es una confirmación definitiva.",
+        rechazado: "El pago fue rechazado o no pudo completarse. Podés volver a intentar la compra.",
+        pendiente: "Tu pago está pendiente. Esperá la confirmación antes de considerar finalizada la compra."
+    };
+
+    const mensaje = mensajes[estado];
+    if (!mensaje) return;
+
+    const elemento = document.getElementById("mensaje-pago");
+    elemento.textContent = mensaje;
+    elemento.hidden = false;
+
+    // Limpiamos el parámetro visual de la URL sin modificar el estado del pedido.
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+// ==========================================
 // PROBADOR VIRTUAL
 // ==========================================
 
@@ -385,24 +469,17 @@ let animacionCamara = null;
 let cargandoDetector = false;
 let productoProbadorId = 1;
 
-// Imagen real del modelo Danubio.
-// El archivo danubio.png debe estar junto a index.html y script.js.
 const imagenDanubio = new Image();
 imagenDanubio.src = "danubio.png";
 
 imagenDanubio.onerror = () => {
-    console.error("No se pudo cargar danubio.png. Revisá que esté en la carpeta del proyecto.");
+    console.error("No se pudo cargar danubio.png.");
 };
-
-// ==========================================
-// ABRIR Y CERRAR PROBADOR
-// ==========================================
 
 function abrirProbador(id = 1) {
     cerrarProducto();
 
     productoProbadorId = Number(id) || 1;
-
     document.getElementById("modal-probador").classList.add("activo");
 
     const estado = document.getElementById("estado-probador");
@@ -418,15 +495,6 @@ function cerrarProbador() {
     document.getElementById("modal-probador").classList.remove("activo");
 }
 
-function probarProductoDesdeDetalle(id) {
-    cerrarProducto();
-    abrirProbador(id);
-}
-
-// ==========================================
-// ACTIVAR CÁMARA
-// ==========================================
-
 async function activarCamara() {
     if (camaraActiva) return;
 
@@ -437,8 +505,8 @@ async function activarCamara() {
     const botonDetener = document.getElementById("btn-detener-camara");
 
     try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            throw new Error("Tu navegador no permite acceder a la cámara en esta dirección.");
+        if (!navigator.mediaDevices?.getUserMedia) {
+            throw new Error("Tu navegador no permite acceder a la cámara.");
         }
 
         estado.textContent = "Solicitando acceso a la cámara...";
@@ -466,18 +534,11 @@ async function activarCamara() {
     } catch (error) {
         console.error("Error en el probador:", error);
         detenerCamara();
-
         estado.textContent = error.message || "No se pudo activar la cámara.";
 
-        alert(
-            "No pudimos iniciar el probador. Revisá los permisos de cámara y que estés usando HTTPS o localhost."
-        );
+        alert("No pudimos iniciar el probador. Revisá los permisos de cámara y que estés usando HTTPS o localhost.");
     }
 }
-
-// ==========================================
-// CARGAR MEDIAPIPE
-// ==========================================
 
 async function iniciarDetectorFacial() {
     if (detectorFacial) return;
@@ -501,8 +562,7 @@ async function iniciarDetectorFacial() {
             archivos,
             {
                 baseOptions: {
-                    modelAssetPath:
-                        "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+                    modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
                     delegate: "GPU"
                 },
                 runningMode: "VIDEO",
@@ -511,17 +571,11 @@ async function iniciarDetectorFacial() {
         );
     } catch (error) {
         console.error("Error cargando MediaPipe:", error);
-        throw new Error(
-            "No se pudo cargar el detector facial. Revisá tu conexión a internet."
-        );
+        throw new Error("No se pudo cargar el detector facial. Revisá tu conexión a internet.");
     } finally {
         cargandoDetector = false;
     }
 }
-
-// ==========================================
-// SEGUIMIENTO DEL ROSTRO
-// ==========================================
 
 function iniciarSeguimientoRostro() {
     const video = document.getElementById("video-probador");
@@ -537,29 +591,17 @@ function iniciarSeguimientoRostro() {
             return;
         }
 
-        if (
-            canvas.width !== video.videoWidth ||
-            canvas.height !== video.videoHeight
-        ) {
+        if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
         }
 
         contexto.clearRect(0, 0, canvas.width, canvas.height);
 
-        const resultado = detectorFacial.detectForVideo(
-            video,
-            performance.now()
-        );
+        const resultado = detectorFacial.detectForVideo(video, performance.now());
 
-        if (resultado.faceLandmarks && resultado.faceLandmarks.length > 0) {
-            dibujarGafas(
-                contexto,
-                resultado.faceLandmarks[0],
-                canvas.width,
-                canvas.height
-            );
-
+        if (resultado.faceLandmarks?.length > 0) {
+            dibujarGafas(contexto, resultado.faceLandmarks[0], canvas.width, canvas.height);
             estado.textContent = "¡Rostro detectado! Mové la cabeza para probar.";
         } else {
             estado.textContent = "Buscando tu rostro...";
@@ -570,11 +612,6 @@ function iniciarSeguimientoRostro() {
 
     detectar();
 }
-
-// ==========================================
-// COLOCAR GAFAS SOBRE EL ROSTRO
-// ==========================================
-
 
 function dibujarGafas(ctx, puntos, ancho, alto) {
     const punto = indice => ({
@@ -607,11 +644,7 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
         centroDerecho.x - centroIzquierdo.x
     );
 
-    if (
-        productoProbadorId === 1 &&
-        imagenDanubio.complete &&
-        imagenDanubio.naturalWidth > 0
-    ) {
+    if (productoProbadorId === 1 && imagenDanubio.complete && imagenDanubio.naturalWidth > 0) {
         ctx.save();
 
         const centroX = (centroIzquierdo.x + centroDerecho.x) / 2;
@@ -621,22 +654,13 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
         ctx.rotate(angulo);
 
         const anchoGafas = distancia * 3.7;
-        const altoGafas = anchoGafas *
-            (imagenDanubio.naturalHeight / imagenDanubio.naturalWidth);
+        const altoGafas = anchoGafas * (imagenDanubio.naturalHeight / imagenDanubio.naturalWidth);
 
         const xImagen = -anchoGafas / 2;
         const yImagen = -altoGafas / 2 - distancia * 0.04;
 
-        // Imagen original completa: conserva la montura.
-        ctx.drawImage(
-            imagenDanubio,
-            xImagen,
-            yImagen,
-            anchoGafas,
-            altoGafas
-        );
+        ctx.drawImage(imagenDanubio, xImagen, yImagen, anchoGafas, altoGafas);
 
-        // Trabajamos sobre las coordenadas originales de danubio.png.
         ctx.save();
         ctx.translate(xImagen, yImagen);
         ctx.scale(
@@ -644,7 +668,6 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
             altoGafas / imagenDanubio.naturalHeight
         );
 
-        // Interior del cristal izquierdo.
         ctx.beginPath();
         ctx.moveTo(165, 158);
         ctx.bezierCurveTo(183, 140, 211, 132, 241, 137);
@@ -654,7 +677,6 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
         ctx.bezierCurveTo(166, 243, 151, 190, 165, 158);
         ctx.closePath();
 
-        // Recorta solo el interior, no la montura.
         ctx.save();
         ctx.clip();
         ctx.globalCompositeOperation = "destination-out";
@@ -662,14 +684,12 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
         ctx.fillRect(140, 120, 180, 180);
         ctx.restore();
 
-        // Tinte marrón translúcido.
         ctx.save();
         ctx.clip();
         ctx.fillStyle = "rgba(105, 62, 43, 0.38)";
         ctx.fillRect(140, 120, 180, 180);
         ctx.restore();
 
-        // Interior del cristal derecho.
         ctx.beginPath();
         ctx.moveTo(387, 158);
         ctx.bezierCurveTo(406, 140, 434, 132, 464, 137);
@@ -705,11 +725,6 @@ function dibujarGafas(ctx, puntos, ancho, alto) {
         (centroIzquierdo.y + centroDerecho.y) / 2
     );
 }
-
-
-// ==========================================
-// GAFAS PROVISORIAS PARA MODELOS SIN FOTO
-// ==========================================
 
 function dibujarGafasProvisorias(ctx, distancia, angulo, centroX, centroY) {
     const anchoLente = distancia * 0.58;
@@ -764,10 +779,6 @@ function dibujarGafasProvisorias(ctx, distancia, angulo, centroX, centroY) {
     ctx.restore();
 }
 
-// ==========================================
-// DETENER CÁMARA
-// ==========================================
-
 function detenerCamara() {
     if (animacionCamara) {
         cancelAnimationFrame(animacionCamara);
@@ -789,31 +800,13 @@ function detenerCamara() {
     if (video) video.srcObject = null;
 
     if (canvas) {
-        canvas.getContext("2d").clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
     }
 
     if (mensaje) mensaje.style.display = "flex";
     if (estado) estado.textContent = "Cámara desactivada";
     if (botonActivar) botonActivar.style.display = "inline-flex";
     if (botonDetener) botonDetener.style.display = "none";
-}
-
-// ==========================================
-// FINALIZAR COMPRA
-// ==========================================
-
-function finalizarCompra() {
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío.");
-        return;
-    }
-
-    alert("La sección de compra estará disponible próximamente.");
 }
 
 // ==========================================
@@ -825,25 +818,19 @@ function suscribirse(event) {
 
     const email = document.getElementById("email").value;
     alert(`¡Gracias! Registramos ${email}.`);
-
     document.getElementById("email").value = "";
 }
 
 // ==========================================
-// FORMATEAR PRECIOS
+// UTILIDADES
 // ==========================================
 
 function formatearPrecio(numero) {
     return numero.toLocaleString("es-AR");
 }
 
-// ==========================================
-// FALLBACK DE IMAGEN
-// ==========================================
-
 function imagenFallback(imagen) {
     imagen.style.display = "none";
-
     imagen.parentElement.innerHTML = `
         <div class="producto-imagen-fallback">🕶️</div>
     `;
@@ -856,4 +843,6 @@ function imagenFallback(imagen) {
 document.addEventListener("DOMContentLoaded", () => {
     mostrarProductos();
     actualizarCarrito();
+    cambiarEntrega();
+    revisarRegresoDePago();
 });
